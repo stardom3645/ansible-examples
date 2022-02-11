@@ -1,0 +1,13 @@
+---
+- name: provision our VMs
+  hosts: cloud-vm
+  tasks:
+    - name: Gather instance information
+      cs_instance_info:
+        name: tj-ansible-worker2
+      delegate_to: localhost
+      register: vm
+
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ vm }}"

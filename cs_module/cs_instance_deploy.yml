@@ -1,0 +1,50 @@
+---
+- name: provision our VMs
+  hosts: cloud-vm
+  tasks:
+
+    - name: Create a network
+      cs_network:
+        name: genie-network1
+        zone: Zone
+        network_offering: DefaultIsolatedNetworkOfferingWithSourceNatService
+        network_domain: cs2cloud.internal
+      delegate_to: localhost
+
+    - name: Allow all outbound traffic
+      cs_firewall:
+        network: genie-network1
+        type: egress
+        protocol: all
+      delegate_to: localhost
+
+    - name: Create a genie-vm1
+      cs_instance:
+        name: genie-vm1
+        display_name: genie_vm1_display
+        template: ansible-temp
+        service_offering: 2C-4GB-RBD
+        networks:
+          - genie-network1
+        tags:
+          - key: admin
+            value: john
+        user_data: |
+            #cloud-config
+                    packages:
+              - nginx
+
+            runcmd:
+              - touch /root/test1.txt
+              - systemctl stop firewalld
+      delegate_to: localhost
+
+    - name: Gather instance information
+      cs_instance_info:
+        name: genie-vm1
+      delegate_to: localhost
+      register: vm
+
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ vm }}"

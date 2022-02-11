@@ -1,0 +1,22 @@
+---
+- name: Remove our VMs
+  hosts: cloud-vm
+  tasks:
+
+    - name: remove an instance
+      cs_instance:
+        name: genie-vm1
+        state: expunged
+      delegate_to: localhost
+
+    - name: remove an instance
+      cs_instance:
+        name: genie-vm2
+        state: expunged
+      delegate_to: localhost
+
+    - name: Remove a network
+      cs_network:
+        name: genie-network1
+        state: absent
+      delegate_to: localhost

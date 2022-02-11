@@ -1,0 +1,30 @@
+---
+- name: provision our VMs
+  hosts: cloud-vm
+  tasks:
+
+    - name: Ensure a VPC is present but not started after creating
+      cs_vpc:
+        name: my_vpc
+        display_text: My example VPC
+        cidr: 10.10.0.0/16
+        state: stopped
+      delegate_to: localhost
+
+    - name: create a network ACL
+      cs_network_acl:
+        name: web
+        description: a more detailed description of the ACL
+        vpc: my_vpc
+      delegate_to: localhost
+
+    - name: create a network ACL rule, allow port 80 ingress
+      cs_network_acl_rule:
+        network_acl: web
+        rule_position: 1
+        vpc: my_vpc
+        traffic_type: ingress
+        action_policy: allow
+        port: 80
+        cidr: 0.0.0.0/0
+      delegate_to: localhost
