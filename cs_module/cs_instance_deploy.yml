@@ -48,7 +48,6 @@
       debug:
         msg: "{{ vm }}"
 
----
 - name: Add inventory AWX API
   hosts: mold
   tasks:
