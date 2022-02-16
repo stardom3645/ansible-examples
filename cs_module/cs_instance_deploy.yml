@@ -49,11 +49,6 @@
         msg: "{{ vm }}"
       
 ---
-# - name: Add inventory AWX API
-#   uri:
-#     url: http://10.10.1.27/api/v2/organizations/1/inventories/
-#     method: GET
-
 - name: Add inventory AWX API
   uri:
     url: http://10.10.1.27/api/v2/inventories/
@@ -68,6 +63,6 @@
       # scope: SCOPE
       data: 
         {
-          "name": "adding inventory from api",
+          "name": "{{ vm.instances[0].nic[0].ipaddress }}",
           "organization": 1
         }
