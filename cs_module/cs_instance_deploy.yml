@@ -54,6 +54,7 @@
         user: admin
         password: password
         method: POST
+        force_basic_auth: yes
         body_format: json
         headers:
           Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
