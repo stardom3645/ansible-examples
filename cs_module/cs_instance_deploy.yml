@@ -18,10 +18,10 @@
         protocol: all
       delegate_to: localhost
 
-    - name: Create a genie-vm1
+    - name: Create a genie-hwryu-vm1
       cs_instance:
         name: genie-hwryu-vm1
-        display_name: genie_vm1_display
+        display_name: genie-hwryu-vm1-display
         template: ansible-temp
         service_offering: 2C-4GB-RBD
         networks:
