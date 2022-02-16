@@ -56,9 +56,8 @@
         method: POST
         body_format: json
         headers:
-          Accept: application/json
+          Authorization: "hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5"
           content-type: application/json
-        access_token: "hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5"
         body:
           {
             "name": " {{ vm.instances[0].nic[0].ipaddress }} ",
