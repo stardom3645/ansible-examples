@@ -47,3 +47,27 @@
     - name: Show the returned results of the registered variable
       debug:
         msg: "{{ vm }}"
+      
+---
+# - name: Add inventory AWX API
+#   uri:
+#     url: http://10.10.1.27/api/v2/organizations/1/inventories/
+#     method: GET
+
+- name: Add inventory AWX API
+  uri:
+    url: http://10.10.1.27/api/v2/inventories/
+    method: POST
+    body_format: json
+    body:
+      # name: your_username
+      # password: your_password
+      # client_id: YOUR_CLIENT_ID
+      access_token: hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+      # connection: CONNECTION
+      # scope: SCOPE
+      data: 
+        {
+          "name": "adding inventory from api",
+          "organization": 1
+        }
