@@ -20,7 +20,7 @@
 
     - name: Create a genie-vm1
       cs_instance:
-        name: genie-vm1
+        name: genie-hwryu-vm1
         display_name: genie_vm1_display
         template: ansible-temp
         service_offering: 2C-4GB-RBD
