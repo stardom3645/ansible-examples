@@ -53,6 +53,7 @@
         url: http://10.10.1.27/api/v2/inventories/
         user: "admin"
         password: "password"
+        force_basic_auth: yes
         method: POST
         body_format: json
         headers:
