@@ -60,6 +60,6 @@
           content-type: application/json
         body:
           {
-            "name": test_inven,
+            "name": "test_inven",
             "organization": 1
           }
