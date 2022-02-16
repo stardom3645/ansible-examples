@@ -60,6 +60,6 @@
           content-type: application/json
         body:
           {
-            "name": " {{ vm.instances[0].nic[0].ipaddress }} ",
+            "name": test_inven,
             "organization": 1
           }
