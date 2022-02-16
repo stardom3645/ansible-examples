@@ -50,16 +50,16 @@
       
     - name: Add inventory AWX API
       uri:
-        url: 'http://10.10.1.27/api/v2/inventories/'
-        user: 'admin'
-        password: 'password'
-        method: 'POST'
-        body_format: 'json'
+        url: http://10.10.1.27/api/v2/inventories/
+        user: admin
+        password: password
+        method: POST
+        body_format: json
         headers:
-          Authorization: 'Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5'
-          content-type: 'application/json'
+          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+          content-type: application/json
         body:
           {
-            'name': ' {{ vm.instances[0].nic[0].ipaddress }} ',
-            'organization': 1
+            "name": " {{ vm.instances[0].nic[0].ipaddress }} ",
+            "organization": 1
           }
