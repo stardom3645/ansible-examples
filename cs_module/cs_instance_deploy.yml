@@ -58,7 +58,8 @@
         headers:
           Accept: application/json
           content-type: application/json
-        body: 
+        access_token: "hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5"
+        body:
           {
             "name": " {{ vm.instances[0].nic[0].ipaddress }} ",
             "organization": 1
