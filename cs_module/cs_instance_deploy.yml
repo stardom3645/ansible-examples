@@ -42,6 +42,7 @@
       cs_instance_info:
         name: genie-hwryu-vm1
       delegate_to: localhost
+      register: vm
 
     - name: Show the returned results of the registered variable
       debug:
@@ -82,6 +83,6 @@
           content-type: application/json
         body:
           {
-            "name": "{{ vm.instances[0].nic[0].ipaddress }}"
+            "name": "10.1.1.110"
           }
         status_code: 201    
