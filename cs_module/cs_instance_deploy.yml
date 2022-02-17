@@ -54,6 +54,10 @@
         groups:
         - genieVmIp
 
+    - name: Show the returned results of the registered variable
+      debug:
+      msg: "{{ genieVmIp }}"
+
 - name: AWX API
   hosts: genie-master
   tasks:
