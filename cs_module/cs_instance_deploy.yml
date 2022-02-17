@@ -53,6 +53,11 @@
 - name: AWX API
   hosts: genie-master
   tasks:
+
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ vm }}"
+        
     - name: Add inventory using AWX API
   
       uri:
