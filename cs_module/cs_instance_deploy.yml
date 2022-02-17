@@ -70,12 +70,12 @@
             "organization": 1
           }
         status_code: 201
-      register: inventory
+      register: inven
 
     - name: Add Hosts for an inventory using AWX API
   
       uri:
-        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/hosts/
+        url: http://10.10.1.27/api/v2/inventories/{{ inven }}/hosts/
         method: POST
         body_format: json
         # user: admin
