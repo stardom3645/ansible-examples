@@ -42,7 +42,7 @@
       cs_instance_info:
         name: genie-hwryu-vm1
       delegate_to: localhost
-      register: vm
+      # register: vm
       var: vm
 
     - name: Show the returned results of the registered variable
