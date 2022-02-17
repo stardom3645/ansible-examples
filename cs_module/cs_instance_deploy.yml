@@ -89,6 +89,6 @@
           content-type: application/json
         body:
           {
-            "name": "{{genie_ip}}"
+            "name": "10.1.1.110"
           }
         status_code: 201    
