@@ -48,7 +48,14 @@
       debug:
         msg: "{{ vm }}"
 
-- hosts: genie-master
+    - name: 배포 가상머신 인메모리 inventory에 등록
+      add_host:
+        hostname: "{{ vm.instances[0].nic[0].ipaddress }}"
+        groups:
+        - genieVmIp
+
+- name: AWX API
+  hosts: genie-master
   tasks:
     - name: Add inventory using AWX API
   
@@ -72,7 +79,7 @@
     - name: Add Hosts for an inventory using AWX API
   
       uri:
-        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/hosts/
+        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/group/
         method: POST
         body_format: json
         # user: admin
@@ -82,6 +89,6 @@
           content-type: application/json
         body:
           {
-            "name": "{{ vm.instances[0].nic[0].ipaddress }}"
+            "name": genieVmIp
           }
         status_code: 201
