@@ -43,20 +43,11 @@
         name: genie-hwryu-vm1
       delegate_to: localhost
       register: vm
+      var: vm
 
     - name: Show the returned results of the registered variable
       debug:
         msg: "{{ vm }}"
-
-    - name: 배포 가상머신 인메모리 inventory에 등록
-      add_host:
-        hostname: "{{ vm.instances[0].nic[0].ipaddress }}"
-        groups:
-        - genieVmIp
-
-    - name: Show the returned results of the registered variable
-      debug:
-        msg: genieVmIp
 
 - name: AWX API
   hosts: genie-master
@@ -83,7 +74,7 @@
     - name: Add Hosts for an inventory using AWX API
   
       uri:
-        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/groups/
+        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/hosts/
         method: POST
         body_format: json
         # user: admin
@@ -93,6 +84,6 @@
           content-type: application/json
         body:
           {
-            "name": "genieVmIp"
+            "name": "{{ vm.instances[0].nic[0].ipaddress }}"
           }
-        status_code: 201
+        status_code: 201    
