@@ -79,7 +79,7 @@
     - name: Add Hosts for an inventory using AWX API
   
       uri:
-        url: http://10.10.1.27/api/v2/inventories/{{ inven }}/hosts/
+        url: http://10.10.1.27/api/v2/inventories/{{ inven.json[0].id }}/hosts/
         method: POST
         body_format: json
         # user: admin
