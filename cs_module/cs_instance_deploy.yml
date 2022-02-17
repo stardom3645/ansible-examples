@@ -42,17 +42,10 @@
       cs_instance_info:
         name: genie-hwryu-vm1
       delegate_to: localhost
-      register: vm
-      vars:
-        genie_ip: "{{ vm.instances[0].nic[0].ipaddress }}"
 
     - name: Show the returned results of the registered variable
       debug:
         msg: "{{ vm }}"
-
-    - name: Show the returned results of the registered variable
-      debug:
-        msg: "{{ genie_ip }}"
 
 - name: AWX API
   hosts: genie-master
@@ -94,6 +87,6 @@
           content-type: application/json
         body:
           {
-            "name": "10.1.1.110"
+            "name": "{{ vm.instances[0].nic[0].ipaddress }}"
           }
         status_code: 201    
