@@ -48,21 +48,21 @@
       debug:
         msg: "{{ vm }}"
 
-- name: Add inventory AWX API
-  hosts: Genie
+- hosts: Genie
   tasks:
+    - name: Add inventory AWX API
   
-    uri:
-      url: http://10.10.1.27/api/v2/inventories/
-      user: admin
-      password: password
-      method: POST
-      body_format: json
-      headers:
-        Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
-        content-type: application/json
-      body:
-        {
-          "name": "test_inven",
-          "organization": 1
-        }
+      uri:
+        url: http://10.10.1.27/api/v2/inventories/
+        user: admin
+        password: password
+        method: POST
+        body_format: json
+        headers:
+          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+          content-type: application/json
+        body:
+          {
+            "name": "test_inven",
+            "organization": 1
+          }
