@@ -56,10 +56,10 @@
         url: http://10.10.1.27/api/v2/inventories/
         method: POST
         body_format: json
-        user: admin
-        password: password
+        # user: admin
+        # password: password
         headers:
-          # Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
           content-type: application/json
         body:
           {
