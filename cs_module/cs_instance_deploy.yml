@@ -47,12 +47,7 @@
       debug:
         msg: "{{ vm }}"
 
-- name: AWX API
-  hosts: genie-master
-  tasks:
-
     - name: Add inventory using AWX API
-  
       uri:
         url: http://10.10.1.27/api/v2/inventories/
         method: POST
