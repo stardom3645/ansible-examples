@@ -89,6 +89,6 @@
           content-type: application/json
         body:
           {
-            "name": genieVmIp
+            "name": "{{genieVmIp}}"
           }
         status_code: 201
