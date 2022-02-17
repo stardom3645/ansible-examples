@@ -72,6 +72,10 @@
         status_code: 201
       register: inven
 
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ inven }}"
+
     - name: Add Hosts for an inventory using AWX API
   
       uri:
