@@ -50,50 +50,46 @@
       debug:
         msg: "{{ vm }}"
 
-- name: AWX API
-  hosts: genie-master
-  tasks:
+    - name: AWX API
+      hosts: genie-master
+      tasks:
 
-    - name: Show the returned results of the registered variable
-      debug:
-        msg: "{{ vm }}"
-        
-    - name: Add inventory using AWX API
-  
-      uri:
-        url: http://10.10.1.27/api/v2/inventories/
-        method: POST
-        body_format: json
-        # user: admin
-        # password: password
-        headers:
-          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
-          content-type: application/json
-        body:
-          {
-            "name": "test_inven",
-            "organization": 1
-          }
-        status_code: 201
-      register: inven
+        - name: Add inventory using AWX API
+      
+          uri:
+            url: http://10.10.1.27/api/v2/inventories/
+            method: POST
+            body_format: json
+            # user: admin
+            # password: password
+            headers:
+              Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+              content-type: application/json
+            body:
+              {
+                "name": "test_inven",
+                "organization": 1
+              }
+            status_code: 201
+          register: inven
 
-    - name: Show the returned results of the registered variable
-      debug:
-        msg: "{{ inven.json.id  }}"
+        - name: Show the returned results of the registered variable
+          debug:
+            msg: "{{ inven.json.id  }}"
 
-    - name: Add Hosts for an inventory using AWX API
-  
-      uri:
-        url: http://10.10.1.27/api/v2/inventories/{{ inven.json.id }}/hosts/
-        method: POST
-        body_format: json
-        # user: admin
-        # password: password
-        headers:
-          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
-          content-type: application/json
-        body:
-          {
-            "name": "10.1.1.110"
-          }
-        status_code: 201    
+        - name: Add Hosts for an inventory using AWX API
+      
+          uri:
+            url: http://10.10.1.27/api/v2/inventories/{{ inven.json.id }}/hosts/
+            method: POST
+            body_format: json
+            # user: admin
+            # password: password
+            headers:
+              Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+              content-type: application/json
+            body:
+              {
+                "name": "10.1.1.110"
+              }
+            status_code: 201    
