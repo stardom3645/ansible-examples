@@ -50,7 +50,7 @@
 
 - hosts: genie-master
   tasks:
-    - name: Add inventory AWX API
+    - name: Add inventory using AWX API
   
       uri:
         url: http://10.10.1.27/api/v2/inventories/
@@ -65,5 +65,23 @@
           {
             "name": "test_inven",
             "organization": 1
+          }
+        status_code: 201
+      register: inventory
+
+    - name: Add Hosts for an inventory using AWX API
+  
+      uri:
+        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/hosts/
+        method: POST
+        body_format: json
+        # user: admin
+        # password: password
+        headers:
+          Authorization: Bearer hdtgsLd9t1ZwOHCIxRHRn23GdtFyV5
+          content-type: application/json
+        body:
+          {
+            "name": "{{ vm.instances[0].nic[0].ipaddress }}"
           }
         status_code: 201
