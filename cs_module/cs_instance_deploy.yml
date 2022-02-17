@@ -83,7 +83,7 @@
     - name: Add Hosts for an inventory using AWX API
   
       uri:
-        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/group/
+        url: http://10.10.1.27/api/v2/inventories/{{inventory}}/groups/
         method: POST
         body_format: json
         # user: admin
