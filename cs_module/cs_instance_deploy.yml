@@ -76,9 +76,9 @@
       debug:
         msg: "{{ inven }}"
 
-    # - name: Show the returned results of the registered variable
-    #   debug:
-    #     msg: "{{ inven }}"
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ inven.json.id }}"
 
     - name: Add Hosts for an inventory using AWX API
   
