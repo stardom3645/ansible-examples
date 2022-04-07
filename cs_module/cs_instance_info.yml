@@ -4,9 +4,9 @@
   tasks:
     - name: Gather instance information
       cs_instance_info:
-        api_url: "{{ api_url }}"
-        api_key: "{{ api_key }}"
-        api_secret: "{{ api_secret }}"
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
         name: CentOS-8-5-2111-hwryu-07
       delegate_to: localhost
       register: vm
