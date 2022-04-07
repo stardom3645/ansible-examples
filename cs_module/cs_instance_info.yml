@@ -1,10 +1,13 @@
 ---
-- name: provision our VMs
-  hosts: cloud-vm
+- name: CS
+  hosts: localhost
   tasks:
     - name: Gather instance information
       cs_instance_info:
-        name: tj-ansible-worker2
+        api_url: "{{ api_url }}"
+        api_key: "{{ api_key }}"
+        api_secret: "{{ api_secret }}"
+        name: CentOS-8-5-2111-hwryu-07
       delegate_to: localhost
       register: vm
 
