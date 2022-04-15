@@ -14,7 +14,7 @@
         template: CentOS-8-5-2111-Base
         service_offering: 2C-4GB-RBD
         networks:
-          - genie-network1
+          - genie-domain-network
         tags:
           - key: vm_type
             value: genie
