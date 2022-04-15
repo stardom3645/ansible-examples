@@ -1,0 +1,21 @@
+---
+- name: vm 배포 테스트
+  hosts: localhost
+  vars:
+    base_path: 'root'
+  gather_facts: no
+  tasks:
+    - name: Create a deployed-vm
+      cs_instance:
+        domain: ROOT/genie
+        account: genie_admin
+        name: deployed-hwryu-vm1
+        display_name: deployed-hwryu-vm1-display
+        template: CentOS-8-5-2111-Base
+        service_offering: 2C-4GB-RBD
+        networks:
+          - genie-network1
+        tags:
+          - key: vm_type
+            value: genie
+      delegate_to: localhost
