@@ -21,4 +21,5 @@
         api_url: "{{ MOLD_API_URL }}"
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
+        zone: Zone
       delegate_to: localhost
