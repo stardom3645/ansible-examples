@@ -14,7 +14,7 @@
         name: hwryu-deploy-vm2
         template: AutomationController-0525
         service_offering: 2C-4GB-RBD
-        ssh_key: AutomationController-hwryu
+        ssh_key: hwryu-test
         networks:
           - genie-network1
         user_data: |
