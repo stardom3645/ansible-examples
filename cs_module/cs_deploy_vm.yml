@@ -11,10 +11,10 @@
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
         zone: Zone
-        name: sj-deploy-vm1
+        name: hwryu-deploy-vm1
         template: CentOS-8-5-2111-cloudinit
         service_offering: 2C-4GB-RBD
-        ssh_key: AutomationController-hwryu
+        ssh_key: automationcontroller-hwryu
         networks:
           - genie-network1
       delegate_to: localhost
@@ -24,7 +24,7 @@
         api_url: "{{ MOLD_API_URL }}"
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
-        name: sj-deploy-vm1
+        name: hwryu-deploy-vm1
       delegate_to: localhost
       register: vm
 
@@ -45,14 +45,14 @@
       debug:
         msg: "{{ ac_public_ip.ip_address }}"
 
-    - name: Create a static NAT for 'ac_public_ip.ip_address' to sj-deploy-vm1
+    - name: Create a static NAT for 'ac_public_ip.ip_address' to hwryu-deploy-vm1
       cs_staticnat:
         api_url: "{{ MOLD_API_URL }}"
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
         ip_address: "{{ ac_public_ip.ip_address }}"
         zone: Zone
-        vm: sj-deploy-vm1
+        vm: hwryu-deploy-vm1
       delegate_to: localhost
 
     - name: 배포 가상머신 인메모리 inventory에 등록
