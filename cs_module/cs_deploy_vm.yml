@@ -2,8 +2,6 @@
 - name: Genie를 활용한 Mold VM 배포
   hosts: localhost
   gather_facts: no
-  vars:
-    file_contents: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWSq5GAdyDDFjiDlzgUYFVOf5+7dF0Q3CVxEhKKrm6MyXJ4FwG7Ah2/9CoL+Q/VHcllwcomb9mPIuvaFt9l3E3rz0hLZWJmP1ynAB2ai4R0ba4QSz/HjJQfYe8scBIiJ86yeLRBvLdkYfc946NbHk6ZrK0PZxc+BArszCYN/cmmyWzogEh325h6jhmEqZv5w8CSHZ9olMFkPEkq3joXQGSf2GVhdDYkxY1P/1kZCKXbuLAdpztKCxDB8q9tDBw3EzSlenrf4+1GMdTFRh2p/QC3vETXRkErDLXGzkW8AnHZLK4arc0swGHuR1lO4tAoqjQDHaQZW/7bAImKTfT0iaEXiGpfweLjBdLCCeZyb51IKeMRoSdJ54FHSJtTr9PEBnrJQdWanrnl+9REoerDAYI0xAJGyi388b5oAoxb3i3UrCdgi/cWEbfGlxqamwu0IjkKLo+5s9h4j5qVLxBzkmnOZ2olWTa2kOlGo2c37kj6jLyRXHUY44NuIqtmk+nyDbpqOQHUPNAEdjMsQyOxfZqLrR7JYpPOMeNnmgNdJDtAPb7qsYXTDSsdP3vtKZq37DilZnTZA7vqEhuqfCnLKwGTZxWymp88ehWFiSY6Glee3XXywUaEI3EPElx47NtiS+PRXFIvkYzkiyAceBKyWGswfAECOrb0HwLoZDL5dbTGw=='
   tasks:
 ##### Deploy VirtualMachine #####
 
@@ -22,8 +20,6 @@
         user_data: |
             #cloud-config
             disable_root: false
-            ssh-authorized-keys:
-              - {{ file_contents }}
       delegate_to: localhost
 
     - name: 배포한 가상머신 정보 수집
