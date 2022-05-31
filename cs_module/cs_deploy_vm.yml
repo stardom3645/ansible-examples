@@ -2,6 +2,8 @@
 - name: Genie를 활용한 Mold VM 배포
   hosts: localhost
   gather_facts: no
+  vars:
+    file_contents: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   tasks:
 ##### Deploy VirtualMachine #####
 
@@ -21,7 +23,7 @@
             #cloud-config
             disable_root: false
             ssh-authorized-keys:
-              - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+              - {{ file_contents }}
       delegate_to: localhost
 
     - name: 배포한 가상머신 정보 수집
