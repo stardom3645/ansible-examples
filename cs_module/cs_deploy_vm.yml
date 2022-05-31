@@ -21,7 +21,7 @@
             #cloud-config
             disable_root: false
             ssh_authorized_keys:
-              - "{{ PUBLIC_SSH_KEY }}"
+              - {{ PUBLIC_SSH_KEY }}
       delegate_to: localhost
 
     - name: 배포한 가상머신 정보 수집
