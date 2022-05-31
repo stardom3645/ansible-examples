@@ -1,0 +1,86 @@
+---
+- name: Genie를 활용한 Mold VM 배포
+  hosts: localhost
+  gather_facts: no
+  tasks:
+##### Deploy VirtualMachine #####
+
+    - name: 가상머신 생성
+      cs_instance:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        zone: Zone
+        name: sj-deploy-vm1
+        template: CentOS-8-5-2111-cloudinit
+        service_offering: 2C-4GB-RBD
+        ssh_key: AutomationController-hwryu
+        networks:
+          - genie-network1
+      delegate_to: localhost
+
+    - name: 배포한 가상머신 정보 수집
+      cs_instance_info:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        name: sj-deploy-vm1
+      delegate_to: localhost
+      register: vm
+
+    - name: 배포 가상머신 ip 정보 수집
+      debug:
+        msg: "{{ vm.instances[0].nic[0].ipaddress }}"
+
+    - name: Create Public IP
+      cs_ip_address:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        zone: Zone
+        network: genie-network1
+      register: ac_public_ip
+
+    - name: Public IP 정보 수집
+      debug:
+        msg: "{{ ac_public_ip.ip_address }}"
+
+    - name: Create a static NAT for 'ac_public_ip.ip_address' to sj-deploy-vm1
+      cs_staticnat:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        ip_address: "{{ ac_public_ip.ip_address }}"
+        zone: Zone
+        vm: sj-deploy-vm1
+      delegate_to: localhost
+
+    - name: 배포 가상머신 인메모리 inventory에 등록
+      add_host:
+        hostname: "{{ vm.instances[0].nic[0].ipaddress }}"
+        groups:
+          - deployVmIp
+
+    - name: Allow 88 port for public ip
+      cs_firewall:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        ip_address: "{{ ac_public_ip.ip_address }}"
+        zone: Zone
+        start_port: 80
+        end_port: 80
+        protocol: tcp
+      delegate_to: localhost
+
+    - name: Allow 22 port for public ip
+      cs_firewall:
+        api_url: "{{ MOLD_API_URL }}"
+        api_key: "{{ MOLD_API_KEY }}"
+        api_secret: "{{ MOLD_SECRET_KEY }}"
+        ip_address: "{{ ac_public_ip.ip_address }}"
+        zone: Zone
+        start_port: 22
+        end_port: 22
+        protocol: tcp
+      delegate_to: localhost
