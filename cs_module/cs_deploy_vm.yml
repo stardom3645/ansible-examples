@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   vars:
-    file_contents: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    file_contents: aaaaaaaaaaaaaaa
   tasks:
 ##### Deploy VirtualMachine #####
 
