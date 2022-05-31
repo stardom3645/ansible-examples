@@ -14,12 +14,14 @@
         name: hwryu-deploy-vm2
         template: AutomationController-0525
         service_offering: 2C-4GB-RBD
-        ssh_key: hwryu-test
+        ssh_key: AutomationController-hwryu
         networks:
           - genie-network1
         user_data: |
             #cloud-config
             disable_root: false
+            ssh-authorized-keys:
+              - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       delegate_to: localhost
 
     - name: 배포한 가상머신 정보 수집
