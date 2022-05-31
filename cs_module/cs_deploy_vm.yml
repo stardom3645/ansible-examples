@@ -12,7 +12,7 @@
         api_secret: "{{ MOLD_SECRET_KEY }}"
         zone: Zone
         name: hwryu-deploy-vm2
-        template: AutomationController-0525
+        template: AutomationController-0524
         service_offering: 2C-4GB-RBD
         ssh_key: AutomationController-hwryu
         networks:
