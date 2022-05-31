@@ -40,7 +40,7 @@
         api_url: "{{ MOLD_API_URL }}"
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
-        zone: Zone
+        zone: L-Zone
         network: genie-network1
       register: ac_public_ip
 
@@ -54,7 +54,7 @@
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
         ip_address: "{{ ac_public_ip.ip_address }}"
-        zone: Zone
+        zone: L-Zone
         vm: hwryu-deploy-vm2
       delegate_to: localhost
 
@@ -70,7 +70,7 @@
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
         ip_address: "{{ ac_public_ip.ip_address }}"
-        zone: Zone
+        zone: L-Zone
         start_port: 80
         end_port: 80
         protocol: tcp
@@ -82,7 +82,7 @@
         api_key: "{{ MOLD_API_KEY }}"
         api_secret: "{{ MOLD_SECRET_KEY }}"
         ip_address: "{{ ac_public_ip.ip_address }}"
-        zone: Zone
+        zone: L-Zone
         start_port: 22
         end_port: 22
         protocol: tcp
