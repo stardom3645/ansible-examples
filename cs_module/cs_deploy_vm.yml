@@ -15,13 +15,12 @@
         template: AutomationController-0525
         service_offering: 2C-4GB-RBD
         ssh_key: AutomationController-hwryu
+        state: running
         networks:
           - genie-network1
         user_data: |
             #cloud-config
             disable_root: false
-            ssh_authorized_keys:
-              - {{ PUBLIC_SSH_KEY }}
       delegate_to: localhost
 
     - name: 배포한 가상머신 정보 수집
