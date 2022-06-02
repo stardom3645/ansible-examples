@@ -1,0 +1,16 @@
+---
+- name: CS
+  hosts: localhost
+  tasks:
+    - name: Gather instance information
+      cs_instance_info:
+        api_url: "{{ lookup('env', 'MOLD_API_URL') }}"
+        api_key: "{{ lookup('env', 'MOLD_API_KEY') }}"
+        api_secret: "{{ lookup('env', 'MOLD_SECRET_KEY') }}"
+        name: hwryu-deploy-vm2
+      delegate_to: localhost
+      register: vm
+
+    - name: Show the returned results of the registered variable
+      debug:
+        msg: "{{ vm }}"
