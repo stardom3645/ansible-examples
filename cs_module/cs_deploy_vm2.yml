@@ -83,3 +83,19 @@
         end_port: 22
         protocol: tcp
       delegate_to: localhost
+      
+##### State Httpd #####
+- name: "State Httpd"
+  hosts: deployVmIp
+  gather_facts: no
+  vars:
+    - service: sshd.service
+  tasks:
+    - name: populate service facts
+      ansible.builtin.service_facts:
+    - debug: var=services[service]['status']
+    - debug:
+        msg: "{{ services[service]['status'] }}"
+    - name: debug set fact
+      set_fact:
+        http_status: "{{ services[service]['status'] }}"
