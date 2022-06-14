@@ -15,8 +15,16 @@
         template: AutomationCtrlTemplate-0610
         service_offering: 2C-4GB-RBD
         ssh_key: "{{ lookup('env', 'MOLD_SSH_KEYPAIR') }}"
+        user_data: |
+            #cloud-config
+            disable_root: false
+            ssh_pwauth: true
         networks:
           - "{{ lookup('env', 'AC_NETWORK_NAME') }}"
+
+    - name: 가상머신 생성 후 ssh_key 생성을 위한 대기
+      wait_for:
+        timeout: 15
 
     - name: 배포한 가상머신 정보 수집
       cs_instance_info:
@@ -93,9 +101,12 @@
   tasks:
     - name: populate service facts
       ansible.builtin.service_facts:
+      delegate_to: localhost
     - debug: var=services[service]['status']
     - debug:
         msg: "{{ services[service]['status'] }}"
     - name: debug set fact
       set_fact:
         http_status: "{{ services[service]['status'] }}"
+      delegate_to: localhost
+    
