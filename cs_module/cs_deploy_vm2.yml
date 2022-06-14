@@ -14,7 +14,7 @@
         name: hwryu-deploy-vm2
         template: CentOS8.4_keypair
         service_offering: 2C-4GB-RBD
-        ssh_key: "automationcontroller-hwryu"
+        ssh_key: "{{ lookup('env', 'MOLD_SSH_KEYPAIR') }}"
         networks:
           - genie-network1
 
