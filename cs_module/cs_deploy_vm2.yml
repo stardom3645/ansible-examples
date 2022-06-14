@@ -110,11 +110,18 @@
       with_items:
         - "{{ keyscan.stdout_lines }}"
 
-    - name: populate service facts
+    - name: Populate service facts
       ansible.builtin.service_facts:
+
+    - name: Print service facts
+      ansible.builtin.debug:
+        var: ansible_facts.services
+
+    #- name: populate service facts
+    #  ansible.builtin.service_facts:
     #- debug: var=services[service]['status']
-    - debug:
-        msg: "{{ services[service]['status'] }}"
-    - name: debug set fact
-      set_fact:
-        http_status: "{{ services[service]['status'] }}"
+    #- debug:
+    #    msg: "{{ services[service]['status'] }}"
+    #- name: debug set fact
+    #  set_fact:
+    #    http_status: "{{ services[service]['status'] }}"
