@@ -95,6 +95,7 @@
 ##### State Httpd #####
 - name: "State Httpd"
   hosts: deployVmIp
+  connection: local
   gather_facts: no
   vars:
     - service: sshd.service
