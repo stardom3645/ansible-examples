@@ -112,7 +112,7 @@
 
     - name: populate service facts
       ansible.builtin.service_facts:
-    - debug: var=services[service]['status']
+    #- debug: var=services[service]['status']
     - debug:
         msg: "{{ services[service]['status'] }}"
     - name: debug set fact
