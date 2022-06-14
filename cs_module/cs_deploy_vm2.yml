@@ -109,7 +109,7 @@
     with_items:
       - "{{ keyscan.stdout_lines }}"
 
-- name: populate service facts
+    - name: populate service facts
       ansible.builtin.service_facts:
       delegate_to: localhost
     - debug: var=services[service]['status']
@@ -119,4 +119,3 @@
       set_fact:
         http_status: "{{ services[service]['status'] }}"
       delegate_to: localhost
-    
