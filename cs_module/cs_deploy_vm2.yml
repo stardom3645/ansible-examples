@@ -16,7 +16,7 @@
         service_offering: 2C-4GB-RBD
         ssh_key: "{{ lookup('env', 'MOLD_SSH_KEYPAIR') }}"
         networks:
-          - genie-network1
+          - "{{ lookup('env', 'AC_NETWORK_NAME') }}"
 
     - name: 배포한 가상머신 정보 수집
       cs_instance_info:
@@ -37,7 +37,7 @@
         api_key: "{{ lookup('env', 'MOLD_API_KEY') }}"
         api_secret: "{{ lookup('env', 'MOLD_SECRET_KEY') }}"
         zone: "{{ lookup('env', 'MOLD_ZONE_NAME') }}"
-        network: genie-network1
+        network: "{{ lookup('env', 'AC_NETWORK_NAME') }}"
       register: ac_public_ip
 
     - name: Public IP 정보 수집
