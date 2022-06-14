@@ -12,7 +12,7 @@
         api_secret: "{{ lookup('env', 'MOLD_SECRET_KEY') }}"
         zone: "{{ lookup('env', 'MOLD_ZONE_NAME') }}"
         name: hwryu-deploy-vm2
-        template: CentOS8.4_keypair
+        template: AutomationCtrlTemplate-0610
         service_offering: 2C-4GB-RBD
         ssh_key: "{{ lookup('env', 'MOLD_SSH_KEYPAIR') }}"
         networks:
