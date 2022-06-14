@@ -99,7 +99,17 @@
   vars:
     - service: sshd.service
   tasks:
-    - name: populate service facts
+  - command: /usr/bin/ssh-keyscan -t ecdsa {{ ansible_host }} #"{{ ansible_host }}"변수에 Inventory에 등록된 Node를 불러와 하나씩 대입
+    register: keyscan #command로 확인된 Node의 키 값을 keyscan이라는 변수에 저장
+ 
+  - lineinfile:
+      name=~/.ssh/known_hosts
+      create=yes
+      line={{ item }} #keyscan 변수에 있는 값이 stdout_lines으로 출력되면 Known_hosts파일에 한줄씩 작성
+    with_items:
+      - "{{ keyscan.stdout_lines }}"
+
+- name: populate service facts
       ansible.builtin.service_facts:
       delegate_to: localhost
     - debug: var=services[service]['status']
