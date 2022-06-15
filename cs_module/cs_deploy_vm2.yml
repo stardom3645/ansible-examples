@@ -108,7 +108,7 @@
         cmd: "{{ item.command }}"
         chdir: /root
       with_items:
-        - {command: '/bin/bash -c "touch /runner/project/ansible.cfg"'}
+        - {command: '/bin/bash -c "touch /root/ansible.cfg"'}
         - {command: '/bin/bash -c "cat /dev/null > /runner/project/ansible.cfg"'}
         - {command: '/bin/bash -c "echo [defaults] >> /runner/project/ansible.cfg"'}
         - {command: '/bin/bash -c "echo # uncomment this to disable SSH key host checking >> /runner/project/ansible.cfg"'}
