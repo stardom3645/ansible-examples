@@ -95,10 +95,10 @@
 ##### State Httpd #####
 - name: "State Httpd"
   hosts: deployVmIp
-  # connection: local
+  connection: local
   gather_facts: yes
   vars:
-    - service: sshd.service
+    - services: sshd.service
   tasks:
     - command: /usr/bin/ssh-keyscan -t ecdsa {{ ansible_host }} #"{{ ansible_host }}"변수에 Inventory에 등록된 Node를 불러와 하나씩 대입
       register: keyscan #command로 확인된 Node의 키 값을 keyscan이라는 변수에 저장
