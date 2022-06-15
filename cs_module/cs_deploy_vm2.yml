@@ -2,6 +2,8 @@
 - name: Genie를 활용한 Mold VM 배포
   hosts: localhost
   gather_facts: no
+  vars:
+    genie_ip: 'localhost'
   tasks:
 ##### Deploy VirtualMachine #####
 
@@ -24,7 +26,7 @@
 
     - name: 가상머신 생성 후 ssh_key 생성을 위한 대기
       wait_for:
-        timeout: 15
+        timeout: 10
 
     - name: 배포한 가상머신 정보 수집
       cs_instance_info:
@@ -86,6 +88,10 @@
         protocol: tcp
       delegate_to: localhost
 
+    - name: AWX 초기 관리자 패스워드 추출
+      shell: kubectl get -n awx secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
+      register: admin_password
+      
     - name: Add host to inventory
       awx.awx.host:
         name: "{{ vm.instances[0].nic[0].ipaddress }}"
