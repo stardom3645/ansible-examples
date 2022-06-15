@@ -62,12 +62,6 @@
         vm: hwryu-deploy-vm2
       delegate_to: localhost
 
-    - name: 배포 가상머신 인메모리 inventory에 등록
-      add_host:
-        hostname: "{{ vm.instances[0].nic[0].ipaddress }}"
-        groups:
-          - deployVmIp
-
     - name: Allow 88 port for public ip
       cs_firewall:
         api_url: "{{ lookup('env', 'MOLD_API_URL') }}"
@@ -92,21 +86,25 @@
         protocol: tcp
       delegate_to: localhost
 
-##### State Httpd #####
-- name: "State Httpd"
-  hosts: deployVmIp
-  gather_facts: no
-  vars:
-    - service: sshd.service
-  tasks:
+    - name: Add host to inventory
+      awx.awx.host:
+        name: "{{ vm.instances[0].nic[0].ipaddress }}"
+        description: "deploiedVm"
+        inventory: "genie_inventory"
+        state: present
+        controller_host: "http://{{ genie_ip }}:80"
+        controller_username: admin
+        controller_password: "{{ admin_password.stdout }}"
 
     - name: command
       shell: ip a
       register: whoami
+      delegate_to: "{{ vm.instances[0].nic[0].ipaddress }}"
 
     - name: 배포 가상머신 ip 정보 수집
       debug:
         msg: "{{ whoami }}"
+      delegate_to: "{{ vm.instances[0].nic[0].ipaddress }}"
 
     # - name: populate service facts
     #   ansible.builtin.service_facts:
@@ -117,9 +115,9 @@
     #   set_fact:
     #    http_status: "{{ services[service]['status'] }}"
 
-    - name: Populate service facts
-      ansible.builtin.service_facts:
-      register: services_state
+    # - name: Populate service facts
+    #   ansible.builtin.service_facts:
+    #   register: services_state
       
-    - debug: var=services_state.ansible_facts.services.netconsole.state
-    - debug: var=services_state.ansible_facts.services.firewalld.service.state
+    # - debug: var=services_state.ansible_facts.services.netconsole.state
+    # - debug: var=services_state.ansible_facts.services.firewalld.service.state
