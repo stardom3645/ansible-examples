@@ -103,18 +103,6 @@
     #     controller_username: admin
     #     controller_password: "{{ admin_password.stdout }}"
 
-    - name: ansible 설정파일 구성
-      command: 
-        cmd: "{{ item.command }}"
-        chdir: /root
-      with_items:
-        - {command: '/bin/bash -c "touch /root/ansible.cfg"'}
-        - {command: '/bin/bash -c "cat /dev/null > /runner/project/ansible.cfg"'}
-        - {command: '/bin/bash -c "echo [defaults] >> /runner/project/ansible.cfg"'}
-        - {command: '/bin/bash -c "echo # uncomment this to disable SSH key host checking >> /runner/project/ansible.cfg"'}
-        - {command: '/bin/bash -c "echo host_key_checking = False >> /runner/project/ansible.cfg"'}
-      delegate_to: localhost
-
     - name: command
       shell: ip a
       register: whoami
