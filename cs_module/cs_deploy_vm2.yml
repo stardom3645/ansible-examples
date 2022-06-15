@@ -110,8 +110,15 @@
       with_items:
         - "{{ keyscan.stdout_lines }}"
 
-    - name: mkdir
-      shell: mkdir -p /root/test/
+    - name: populate service facts
+      ansible.builtin.service_facts:
+    - debug: var=services[service]['status']
+    - debug:
+       msg: "{{ services[service]['status'] }}"
+    - name: debug set fact
+      set_fact:
+       http_status: "{{ services[service]['status'] }}"
+
 
     # - name: Populate service facts
     #   ansible.builtin.service_facts:
@@ -119,12 +126,3 @@
       
     # - debug: var=services_state.ansible_facts.services.netconsole.state
     # - debug: var=services_state.ansible_facts.services.firewalld.service.state
-
-    #- name: populate service facts
-    #  ansible.builtin.service_facts:
-    #- debug: var=services[service]['status']
-    #- debug:
-    #    msg: "{{ services[service]['status'] }}"
-    #- name: debug set fact
-    #  set_fact:
-    #    http_status: "{{ services[service]['status'] }}"
