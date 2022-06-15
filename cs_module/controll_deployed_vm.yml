@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: command1111111
-      shell: ip a
+      shell: whoami
       register: whoami
 
 ##### State Httpd #####
