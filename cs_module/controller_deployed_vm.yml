@@ -1,0 +1,24 @@
+---
+- name: Genie를 활용한 Mold VM 배포
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: command1111111
+      shell: ip a
+      register: whoami
+
+##### State Httpd #####
+- name: "State Httpd"
+  hosts: deployed_vm
+  gather_facts: no
+  vars:
+    - service: sshd.service
+  tasks:
+
+    - name: command2222222
+      shell: ip a
+      register: whoami
+
+    - name: 배포 가상머신 ip 정보 수집
+      debug:
+        msg: "{{ whoami }}"
