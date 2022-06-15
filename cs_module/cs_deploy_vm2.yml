@@ -88,19 +88,20 @@
         protocol: tcp
       delegate_to: localhost
 
-    - name: AWX 초기 관리자 패스워드 추출
-      shell: kubectl get -n awx secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
-      register: admin_password
-      
-    - name: Add host to inventory
-      awx.awx.host:
-        name: "{{ vm.instances[0].nic[0].ipaddress }}"
-        description: "deploiedVm"
-        inventory: "genie_inventory"
-        state: present
-        controller_host: "http://{{ genie_ip }}:80"
-        controller_username: admin
-        controller_password: "{{ admin_password.stdout }}"
+    # - name: AWX 초기 관리자 패스워드 추출
+    #   shell: kubectl get -n awx secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
+    #   register: admin_password
+    #   delegate_to: 10.10.3.47
+
+    # - name: Add host to inventory
+    #   awx.awx.host:
+    #     name: "{{ vm.instances[0].nic[0].ipaddress }}"
+    #     description: "deploiedVm"
+    #     inventory: "genie_inventory"
+    #     state: present
+    #     controller_host: "http://{{ genie_ip }}:80"
+    #     controller_username: admin
+    #     controller_password: "{{ admin_password.stdout }}"
 
     - name: command
       shell: ip a
