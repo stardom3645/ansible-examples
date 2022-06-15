@@ -91,38 +91,34 @@
         end_port: 22
         protocol: tcp
       delegate_to: localhost
+
+    - name: tell the host about our servers it might want to ssh to
+      known_hosts:
+        path: ~/.ssh/known_hosts
+        name: deployVmIp
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       
 ##### State Httpd #####
 - name: "State Httpd"
   hosts: deployVmIp
-  connection: local
-  gather_facts: yes
+  # connection: local
+  gather_facts: no
   vars:
-    - services: sshd.service
+    - service: sshd.service
   tasks:
-    - command: /usr/bin/ssh-keyscan -t ecdsa {{ ansible_host }} #"{{ ansible_host }}"변수에 Inventory에 등록된 Node를 불러와 하나씩 대입
-      register: keyscan #command로 확인된 Node의 키 값을 keyscan이라는 변수에 저장
 
-    - lineinfile:
-        name=~/.ssh/known_hosts
-        create=yes
-        line={{ item }} #keyscan 변수에 있는 값이 stdout_lines으로 출력되면 Known_hosts파일에 한줄씩 작성
-      with_items:
-        - "{{ keyscan.stdout_lines }}"
-
-    - name: populate service facts
-      ansible.builtin.service_facts:
-    - debug: var=services[service]['status']
-    - debug:
-       msg: "{{ services[service]['status'] }}"
-    - name: debug set fact
-      set_fact:
-       http_status: "{{ services[service]['status'] }}"
-
-
-    # - name: Populate service facts
+    # - name: populate service facts
     #   ansible.builtin.service_facts:
-    #   register: services_state
+    # - debug: var=services[service]['status']
+    # - debug:
+    #    msg: "{{ services[service]['status'] }}"
+    # - name: debug set fact
+    #   set_fact:
+    #    http_status: "{{ services[service]['status'] }}"
+
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+      register: services_state
       
-    # - debug: var=services_state.ansible_facts.services.netconsole.state
-    # - debug: var=services_state.ansible_facts.services.firewalld.service.state
+    - debug: var=services_state.ansible_facts.services.netconsole.state
+    - debug: var=services_state.ansible_facts.services.firewalld.service.state
