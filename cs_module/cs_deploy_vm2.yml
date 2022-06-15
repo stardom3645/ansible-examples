@@ -88,6 +88,12 @@
         protocol: tcp
       delegate_to: localhost
 
+    - name: 배포 가상머신 인메모리 inventory에 등록
+      add_host:
+        hostname: "{{ vm.instances[0].nic[0].ipaddress }}"
+        groups:
+          - deployVmIp
+
     # - name: AWX 초기 관리자 패스워드 추출
     #   shell: kubectl get -n awx secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
     #   register: admin_password
@@ -103,15 +109,18 @@
     #     controller_username: admin
     #     controller_password: "{{ admin_password.stdout }}"
 
+
+- name: VM 배포된
+  hosts: deployVmIp
+  gather_facts: no
+  tasks:
     - name: command
       shell: ip a
       register: whoami
-      delegate_to: "{{ vm.instances[0].nic[0].ipaddress }}"
 
     - name: 배포 가상머신 ip 정보 수집
       debug:
         msg: "{{ whoami }}"
-      delegate_to: "{{ vm.instances[0].nic[0].ipaddress }}"
 
 
     # - name: populate service facts
