@@ -1,5 +1,5 @@
 ---
-- name: Genie를 활용한 Mold VM 배포
+- name: localhost에서
   hosts: localhost
   gather_facts: no
   tasks:
