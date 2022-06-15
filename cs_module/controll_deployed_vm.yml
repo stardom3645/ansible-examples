@@ -5,8 +5,11 @@
   tasks:
     - name: command1111111
       shell: whoami
-      register: whoami
-
+      register: whoami1
+      
+    - name: localhost에서 정보 수집
+      debug:
+        msg: "{{ whoami1 }}"
 ##### State Httpd #####
 - name: "State Httpd"
   hosts: deployed_vm
@@ -17,8 +20,8 @@
 
     - name: command2222222
       shell: ip a
-      register: whoami
+      register: whoami2
 
     - name: 배포 가상머신 ip 정보 수집
       debug:
-        msg: "{{ whoami }}"
+        msg: "{{ whoami2 }}"
