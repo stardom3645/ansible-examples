@@ -92,20 +92,21 @@
         protocol: tcp
       delegate_to: localhost
 
-    - name: tell the host about our servers it might want to ssh to
-      known_hosts:
-        path: ~/.ssh/known_hosts
-        name: deployVmIp
-        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-      
 ##### State Httpd #####
 - name: "State Httpd"
   hosts: deployVmIp
-  # connection: local
   gather_facts: no
   vars:
     - service: sshd.service
   tasks:
+
+    - name: command
+      shell: ip a
+      register: whoami
+
+    - name: 배포 가상머신 ip 정보 수집
+      debug:
+        msg: "{{ whoami }}"
 
     # - name: populate service facts
     #   ansible.builtin.service_facts:
