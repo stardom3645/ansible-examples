@@ -1,33 +1,34 @@
 ---
 - name: localhost에서
   hosts: localhost
-  gather_facts: yes
+  gather_facts: no
   tasks:
     - name: command1111111
       shell: whoami
       register: whoami1
 
-    - name: Setting host facts using key=value pairs, this format can only create strings or booleans
-      set_fact: whoami11111={{ whoami1.stdout }}
+    # - name: Setting host facts using key=value pairs, this format can only create strings or booleans
+    #   set_fact: whoami11111={{ whoami1.stdout }}
 
-    - name: localhost에서 정보 수집
+    - name: localhost에서 정보 수집1111
       debug:
-        msg: "{{ whoami11111 }}"
+        msg: "{{ whoami1 }}"
 
-
-- name: localhost에서
-  hosts: deployed_vm
-  gather_facts: yes
-  tasks:
-    ##### State Httpd #####
-    # - name: command2222222
-    #   shell: ip a
-    #   register: whoami2
-
-    # - name: 배포 가상머신 ip 정보 수집
-    #   debug:
-    #     msg: "{{ whoami2 }}"
-
-    - name: set fact
+    - name: localhost에서 정보 수집22222
       debug:
-        msg: "{{ whoami11111 }}"
+        msg: "{{ whoami1 }}"
+      delegate_to: genie_vm
+
+# - name: localhost에서
+#   hosts: deployed_vm
+#   gather_facts: yes
+#   tasks:
+#     ##### State Httpd #####
+#     - name: command2222222
+#       shell: ip a
+#       register: whoami2
+
+#     - name: 배포 가상머신 ip 정보 수집
+#       debug:
+#         msg: "{{ whoami2 }}"
+
