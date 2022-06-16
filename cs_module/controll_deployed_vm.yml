@@ -32,6 +32,12 @@
     - name: localhost에서 정보 수집33333
       debug:
         msg: "{{ whoami222 }}"
+
+    - name: command33333
+      shell: mkdir -p /root/test_folder/
+      delegate_to: 10.1.1.252
+
+
 # - name: localhost에서
 #   hosts: deployed_vm
 #   gather_facts: yes
