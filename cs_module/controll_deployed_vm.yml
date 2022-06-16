@@ -14,15 +14,24 @@
       debug:
         msg: "{{ whoami1 }}"
 
-    - name: localhost에서 정보 수집22222
+    - name: localhost에서 정보 수집11111
       debug:
         msg: "{{ whoami1 }}"
       delegate_to: genie_vm
 
-    - name: command1111111
+    - name: command222222
       shell: whoami
-      register: whoami1
+      register: whoami222
       delegate_to: 10.1.1.252
+
+    - name: localhost에서 정보 수집22222
+      debug:
+        msg: "{{ whoami1 }}"
+      delegate_to: 10.1.1.252
+
+    - name: localhost에서 정보 수집33333
+      debug:
+        msg: "{{ whoami1 }}"
 # - name: localhost에서
 #   hosts: deployed_vm
 #   gather_facts: yes
