@@ -19,6 +19,10 @@
         msg: "{{ whoami1 }}"
       delegate_to: genie_vm
 
+    - name: command1111111
+      shell: whoami
+      register: whoami1
+      delegate_to: genie_vm
 # - name: localhost에서
 #   hosts: deployed_vm
 #   gather_facts: yes
