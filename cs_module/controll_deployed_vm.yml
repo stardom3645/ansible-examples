@@ -10,18 +10,14 @@
     - name: localhost에서 정보 수집
       debug:
         msg: "{{ whoami1 }}"
-##### State Httpd #####
-- name: "State Httpd"
-  hosts: deployed_vm
-  gather_facts: no
-  vars:
-    - service: sshd.service
-  tasks:
 
+    ##### State Httpd #####
     - name: command2222222
       shell: ip a
       register: whoami2
+      delegate_to: deployed_vm
 
     - name: 배포 가상머신 ip 정보 수집
       debug:
         msg: "{{ whoami2 }}"
+      delegate_to: deployed_vm
