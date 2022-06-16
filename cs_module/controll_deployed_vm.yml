@@ -22,12 +22,12 @@
     - name: command222222
       shell: whoami
       register: whoami222
-      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
+      delegate_to: "{{ lookup('env', 'AC_NETWORK_ADDRESS') }}"
 
     - name: localhost에서 정보 수집22222
       debug:
         msg: "{{ whoami222 }}"
-      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
+      delegate_to: "{{ lookup('env', 'AC_NETWORK_ADDRESS') }}"
 
     - name: localhost에서 정보 수집33333
       debug:
@@ -35,7 +35,7 @@
 
     - name: command33333
       shell: mkdir -p /root/test_folder2/
-      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
+      delegate_to: "{{ lookup('env', 'AC_NETWORK_ADDRESS') }}"
 
 # - name: localhost에서
 #   hosts: deployed_vm
