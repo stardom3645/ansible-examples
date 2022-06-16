@@ -1,7 +1,7 @@
 ---
 - name: localhost에서
   hosts: localhost
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: command1111111
       shell: whoami
@@ -10,33 +10,32 @@
     # - name: Setting host facts using key=value pairs, this format can only create strings or booleans
     #   set_fact: whoami11111={{ whoami1.stdout }}
 
-    - name: localhost에서 정보 수집1111
-      debug:
-        msg: "{{ whoami1 }}"
+    # - name: localhost에서 정보 수집1111
+    #   debug:
+    #     msg: "{{ whoami1 }}"
 
-    - name: localhost에서 정보 수집11111
-      debug:
-        msg: "{{ whoami1 }}"
-      delegate_to: genie_vm
+    # - name: localhost에서 정보 수집11111
+    #   debug:
+    #     msg: "{{ whoami1 }}"
+    #   delegate_to: genie_vm
 
     - name: command222222
       shell: whoami
       register: whoami222
-      delegate_to: 10.1.1.252
+      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
 
     - name: localhost에서 정보 수집22222
       debug:
         msg: "{{ whoami222 }}"
-      delegate_to: 10.1.1.252
+      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
 
     - name: localhost에서 정보 수집33333
       debug:
         msg: "{{ whoami222 }}"
 
     - name: command33333
-      shell: mkdir -p /root/test_folder/
-      delegate_to: 10.1.1.252
-
+      shell: mkdir -p /root/test_folder2/
+      delegate_to: "{{ AC_NETWORK_ADDRESS }}"
 
 # - name: localhost에서
 #   hosts: deployed_vm
