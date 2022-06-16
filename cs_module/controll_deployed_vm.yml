@@ -26,12 +26,12 @@
 
     - name: localhost에서 정보 수집22222
       debug:
-        msg: "{{ whoami1 }}"
+        msg: "{{ whoami222 }}"
       delegate_to: 10.1.1.252
 
     - name: localhost에서 정보 수집33333
       debug:
-        msg: "{{ whoami1 }}"
+        msg: "{{ whoami222 }}"
 # - name: localhost에서
 #   hosts: deployed_vm
 #   gather_facts: yes
