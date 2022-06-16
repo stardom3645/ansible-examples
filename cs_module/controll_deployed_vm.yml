@@ -22,7 +22,7 @@
     - name: command1111111
       shell: whoami
       register: whoami1
-      delegate_to: genie_vm
+      delegate_to: 10.1.1.252
 # - name: localhost에서
 #   hosts: deployed_vm
 #   gather_facts: yes
