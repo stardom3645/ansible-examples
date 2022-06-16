@@ -6,18 +6,28 @@
     - name: command1111111
       shell: whoami
       register: whoami1
-      
+
+    - name: Setting host facts using key=value pairs, this format can only create strings or booleans
+      set_fact: whoami11111={{ whoami1.stdout }}
+
     - name: localhost에서 정보 수집
       debug:
-        msg: "{{ whoami1 }}"
+        msg: "{{ whoami11111 }}"
 
+
+- name: localhost에서
+  hosts: deployed_vm
+  gather_facts: no
+  tasks:
     ##### State Httpd #####
-    - name: command2222222
-      shell: ip a
-      register: whoami2
-      delegate_to: deployed_vm
+    # - name: command2222222
+    #   shell: ip a
+    #   register: whoami2
 
-    - name: 배포 가상머신 ip 정보 수집
+    # - name: 배포 가상머신 ip 정보 수집
+    #   debug:
+    #     msg: "{{ whoami2 }}"
+
+    - name: set fact
       debug:
-        msg: "{{ whoami2 }}"
-      delegate_to: deployed_vm
+        msg: "{{ whoami11111 }}"
