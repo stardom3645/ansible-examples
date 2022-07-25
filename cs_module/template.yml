@@ -14,7 +14,7 @@
   # Wordpress
   - name: Create wordpress deploy playbook
     awx.awx.job_template:
-      name: "["AC가상머신"]" 정보 수집
+      name: '[AC가상머신] 정보 수집'
       description: 오토메이션 컨트롤러 정보를 읽어오는 템플릿 입니다.
       job_type: "run"
       inventory: genie_inventory
